@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.mastacode.http;
+package in.yuvi.http.fluent;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.mastacode.http;
+package in.yuvi.http.fluent;
 
 import java.io.*;
 import java.net.URLEncoder;
@@ -37,13 +37,11 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import de.mastacode.http.Http.HttpRequestBuilder;
-
 /**
  * Fluent builder for the {@linkplain HttpClient} to simplify its usage.
  * 
  * <p>
- * To execute a request, use {@linkplain #get(String) Http.get("http://w...")} or {@linkplain #post(String) Http.post("http://w...")}, specify at least the {@linkplain HttpClient client} to use for this request and execute it with one of the execution
+ * To execute a request, use {@linkplain #get(String) Http.get("fluent://w...")} or {@linkplain #post(String) Http.post("fluent://w...")}, specify at least the {@linkplain HttpClient client} to use for this request and execute it with one of the execution
  * methods.
  * 
  * <h2>Request execution methods overview:</h2>
@@ -74,7 +72,7 @@ import de.mastacode.http.Http.HttpRequestBuilder;
  * <dd>
  * 
  * <pre>
- * final String site = Http.get(&quot;http://somesite.com&quot;).use(client).asString();
+ * final String site = Http.get(&quot;fluent://somesite.com&quot;).use(client).asString();
  * </pre>
  * 
  * </dd>
@@ -83,7 +81,7 @@ import de.mastacode.http.Http.HttpRequestBuilder;
  * <dd>
  * 
  * <pre>
- * final String ok = Http.get(&quot;http://somesite.com&quot;).use(client).header(&quot;User-Agent&quot;, &quot;HttpClient Wrapper&quot;).charset(&quot;UTF-8&quot;).followRedirects(true).customize(new RequestCustomizer() {
+ * final String ok = Http.get(&quot;fluent://somesite.com&quot;).use(client).header(&quot;User-Agent&quot;, &quot;HttpClient Wrapper&quot;).charset(&quot;UTF-8&quot;).followRedirects(true).customize(new RequestCustomizer() {
  *     &#064;Override
  *     public void customize(final HttpUriRequest request) {
  *         HttpProtocolParams.useExpectContinue(request.getParams());
@@ -103,7 +101,7 @@ import de.mastacode.http.Http.HttpRequestBuilder;
  * <dd>
  * 
  * <pre>
- * final HttpResponse serachResult = Http.post(&quot;http://somesite.com&quot;).data(&quot;search_name&quot;, &quot;cat&quot;).data(&quot;search_gender&quot;, &quot;m&quot;).asResponse();
+ * final HttpResponse serachResult = Http.post(&quot;fluent://somesite.com&quot;).data(&quot;search_name&quot;, &quot;cat&quot;).data(&quot;search_gender&quot;, &quot;m&quot;).asResponse();
  * </pre>
  * 
  * </dd>
@@ -669,7 +667,7 @@ public final class Http {
     }
 
     // Request builders
-    // Stolen from http://stackoverflow.com/questions/187676/java-equivalents-of-c-sharp-string-format-and-string-join
+    // Stolen from fluent://stackoverflow.com/questions/187676/java-equivalents-of-c-sharp-string-format-and-string-join
     // Because Java doesn't have a String Join function! WTF man!
     static String join(Collection<String> s, String delimiter) {
         StringBuilder builder = new StringBuilder();
