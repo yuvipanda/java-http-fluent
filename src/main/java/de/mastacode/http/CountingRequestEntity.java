@@ -20,7 +20,6 @@ import java.io.OutputStream;
 
 import org.apache.http.*;
 import org.apache.http.Header;
-import org.apache.http.entity.mime.*;
 
 public class CountingRequestEntity implements HttpEntity {
     private final HttpEntity delegate;
