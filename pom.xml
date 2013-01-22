@@ -4,13 +4,45 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>http-fluent</groupId>
-    <artifactId>http-fluent</artifactId>
+    <groupId>de.mastacode</groupId>
+    <artifactId>http</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>HTTP Fluent Builder</name>
+    <description>A fluent HTTP wrapper on top of Apache HTTP Components</description>
+    <url>http://github.com/yuvipanda/java-http-fluent</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>yuvipanda</id>
+            <name>Yuvi Panda</name>
+            <email>yuvipanda@gmail.com</email>
+            <timezone>0530</timezone>
+        </developer>
+        <developer>
+            <id>mastacode</id>
+            <name>Thomas Dudek</name>
+        </developer>
+
+    </developers>
+
+    <scm>
+        <url>http://github.com/yuvipanda/java-http-fluent.git</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
     <dependencies>
         <dependency>
