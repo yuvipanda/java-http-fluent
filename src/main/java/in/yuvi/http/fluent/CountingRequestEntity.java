@@ -26,6 +26,8 @@ public class CountingRequestEntity implements HttpEntity {
 
     private final ProgressListener listener;
 
+    public static final double PROGRESS_TRIGGER_PERCENTAGE = 0.2 / 100;
+
     public CountingRequestEntity(final HttpEntity entity,
             final ProgressListener listener) {
         super();
@@ -51,6 +53,8 @@ public class CountingRequestEntity implements HttpEntity {
 
         private long transferred;
         private long total;
+        private long runningCount;
+        private final long progressTriggerThreshold;
 
         public CountingOutputStream(final OutputStream out,
                 final ProgressListener listener, final long totalLength) {
@@ -58,18 +62,28 @@ public class CountingRequestEntity implements HttpEntity {
             this.listener = listener;
             this.transferred = 0;
             this.total = totalLength;
+            this.runningCount = 0;
+            this.progressTriggerThreshold = (long)(this.total *  PROGRESS_TRIGGER_PERCENTAGE);
         }
 
         public void write(byte[] b, int off, int len) throws IOException {
             out.write(b, off, len);
-            this.transferred += len;
-            this.listener.onProgress(transferred, total);
+            transferred += len;
+            runningCount += len;
+            if(runningCount >= progressTriggerThreshold || transferred == total) {
+                listener.onProgress(transferred, total);
+                runningCount = 0;
+            }
         }
 
         public void write(int b) throws IOException {
             out.write(b);
-            this.transferred++;
-            this.listener.onProgress(transferred, total);
+            transferred++;
+            runningCount++;
+            if(runningCount >= progressTriggerThreshold || transferred == total) {
+                this.listener.onProgress(transferred, total);
+                runningCount = 0;
+            }
         }
     }
 
