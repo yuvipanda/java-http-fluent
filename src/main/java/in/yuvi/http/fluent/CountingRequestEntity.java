@@ -26,13 +26,15 @@ public class CountingRequestEntity implements HttpEntity {
 
     private final ProgressListener listener;
 
-    public static final double PROGRESS_TRIGGER_PERCENTAGE = 0.2 / 100;
+    private final double PROGRESS_TRIGGER_PERCENTAGE;
 
     public CountingRequestEntity(final HttpEntity entity,
             final ProgressListener listener) {
         super();
         this.delegate = entity;
         this.listener = listener;
+        // Percenetage of total size after which to trigger progress updates. Defaults to 0.5%
+        this.PROGRESS_TRIGGER_PERCENTAGE = Double.valueOf(System.getProperty("in.yuvi.http.fluent.PROGRESS_TRIGGER_THRESHOLD", "0.5")) / 100;
     }
 
     public long getContentLength() {
@@ -44,7 +46,7 @@ public class CountingRequestEntity implements HttpEntity {
     }
 
     public void writeTo(final OutputStream out) throws IOException {
-        this.delegate.writeTo(new CountingOutputStream(out, this.listener, this.getContentLength()));
+        this.delegate.writeTo(new CountingOutputStream(out, this.listener, this.getContentLength(), PROGRESS_TRIGGER_PERCENTAGE));
     }
 
     public static class CountingOutputStream extends FilterOutputStream {
@@ -57,7 +59,7 @@ public class CountingRequestEntity implements HttpEntity {
         private final long progressTriggerThreshold;
 
         public CountingOutputStream(final OutputStream out,
-                final ProgressListener listener, final long totalLength) {
+                final ProgressListener listener, final long totalLength, final double PROGRESS_TRIGGER_PERCENTAGE) {
             super(out);
             this.listener = listener;
             this.transferred = 0;
