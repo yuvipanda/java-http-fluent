@@ -18,6 +18,7 @@ package in.yuvi.http.fluent;
 
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -729,7 +730,7 @@ public final class Http {
             MultipartEntity entity = new MultipartEntity();          
             List<NameValuePair> dataList = getData();
             for (NameValuePair d : dataList) {
-                entity.addPart(new FormBodyPart(d.getName(), new StringBody(d.getValue())));
+                entity.addPart(new FormBodyPart(d.getName(), new StringBody(d.getValue(), Charset.forName("utf-8"))));
             }
             for (Map.Entry<String, InputStreamBody> entry : files.entrySet()) {
                 entity.addPart(new FormBodyPart(entry.getKey(), entry.getValue()));
