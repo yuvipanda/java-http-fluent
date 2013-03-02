@@ -10,7 +10,7 @@
 
     <groupId>in.yuvi</groupId>
     <artifactId>http.fluent</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.3</version>
     <packaging>jar</packaging>
 
     <name>HTTP Fluent Builder</name>
